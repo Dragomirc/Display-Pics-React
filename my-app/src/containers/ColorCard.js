@@ -2,7 +2,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { generateSearchTerm, searchTerms } from "../logic";
 import { mapColor } from "../logic";
-import { API_KEY } from "../config.js";
+
 const fadein = keyframes`
   from { opacity:0; } to { opacity:1; }
 `;
