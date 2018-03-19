@@ -1,7 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import styled, { keyframes } from "styled-components";
 import { generateSearchTerm, searchTerms } from "../logic";
 import { mapColor } from "../logic";
+import { fetchPictures } from "../actions/index";
 
 const fadein = keyframes`
   from { opacity:0; } to { opacity:1; }
@@ -31,32 +34,24 @@ const Card = styled.li`
     animation-delay: 2.4s;
   }
 `;
-const ColorCard = props => {
-  const onColorSelect = (color, searchTerm) => {
-    fetch(
-      `https://pixabay.com/api/?key=${API_KEY}&q=${color}+${searchTerm}&image_type=photo`
-    )
-      .then(res => {
-        if (res.status !== 200) {
-          console.log("Something went wrong with the request");
+class ColorCard extends Component {
+  render() {
+    return (
+      <Card
+        style={{ backgroundColor: mapColor(this.props.color) }}
+        onClick={() =>
+          this.props.fetchPictures(
+            this.props.color,
+            searchTerms[generateSearchTerm(searchTerms)]
+          )
         }
+      />
+    );
+  }
+}
 
-        return res.json();
-      })
-      .then(images => props.info(images))
-      .catch(err => {
-        throw new Error("Fetching failed");
-      });
-  };
-
-  return (
-    <Card
-      style={{ backgroundColor: mapColor(props.color) }}
-      onClick={() =>
-        onColorSelect(props.color, searchTerms[generateSearchTerm(searchTerms)])
-      }
-    />
-  );
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ fetchPictures }, dispatch);
 };
 
-export default ColorCard;
+export default connect(null, mapDispatchToProps)(ColorCard);
