@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import ImageCard from "../components/ImageCard";
 import styled from "styled-components";
 
@@ -8,14 +9,22 @@ const List = styled.ul`
   list-style-type: none;
   justify-content: space-around;
 `;
-const ImageCardList = ({ images: { hits = [] } }) => {
-  const images = hits
-    .slice(0, 5)
-    .map(({ previewURL, pageURL, id, tags }) => (
-      <ImageCard previewURL={previewURL} key={id} url={pageURL} tags={tags} />
-    ));
+class ImageCardList extends Component {
+  renderImages = imagesArray =>
+    imagesArray
+      .slice(0, 5)
+      .map(({ previewURL, pageURL, id, tags }) => (
+        <ImageCard previewURL={previewURL} key={id} url={pageURL} tags={tags} />
+      ));
 
-  return <List>{images}</List>;
+  render() {
+    console.log("pictures", this.props.pictures);
+    return <List>{this.renderImages(this.props.pictures)}</List>;
+  }
+}
+const mapStateToProps = ({ pictures }) => {
+  return {
+    pictures
+  };
 };
-
-export default ImageCardList;
+export default connect(mapStateToProps)(ImageCardList);
