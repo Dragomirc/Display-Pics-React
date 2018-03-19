@@ -1,7 +1,7 @@
-import { combinedReducers } from "redux";
+import { combineReducers } from "redux";
 import { fetchPictures } from "./reducer_fetch_pictures";
 
-const rootReducer = combinedReducers({
+const rootReducer = combineReducers({
   pictures: fetchPictures
 });
 

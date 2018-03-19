@@ -8,7 +8,7 @@ export const fetchPictures = (color, searchTerm) => {
   );
 
   return {
-    action: FETCH_PICTURES,
+    type: FETCH_PICTURES,
     payload: request
   };
 };
