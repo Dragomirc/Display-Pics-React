@@ -1,5 +1,5 @@
 import React from "react";
-import ColorCard from "./ColorCard";
+import ColorCard from "../containers/ColorCard";
 import styled from "styled-components";
 
 const CardList = styled.ul`

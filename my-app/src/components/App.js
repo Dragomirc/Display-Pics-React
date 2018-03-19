@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import ColorCardList from "./ColorCardList";
-import ImageCardList from "./ImageCardList";
+import ImageCardList from "../containers/ImageCardList";
 import Header from "./Header";
 
 class App extends Component {
