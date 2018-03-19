@@ -1,8 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import ReduxPromise from "redux-promise";
 import App from "./components/App";
+import reducers from "./reducers";
 import registerServiceWorker from "./registerServiceWorker";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const createSotreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+ReactDOM.render(
+  <Provider store={createSotreWithMiddleware(reducer)}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
 registerServiceWorker();
